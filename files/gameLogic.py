@@ -19,3 +19,16 @@ def frame(gameBoard,lockBoard):
 
     return gameBoard,stuck
 
+def spawnTetromino(gameBoard, tetromino):
+    next = tetromino[rand.randint(0,6)]
+    print(next.up)
+
+    for i in range(0,4):
+        for j in range(0,4):
+            if gameBoard[j][i+3] == "@":
+                print('game over')
+            else:
+                gameBoard[j][i+3] = next.up.item(j,i)
+                print(next.up.item(j,i))
+    
+    return gameBoard
