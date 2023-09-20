@@ -8,10 +8,11 @@ def createGB():
 def frame(gameBoard,lockBoard):
     stuck = False
     
-    for i in range(len(gameBoard[0])-1,0,-1):
-        for j in range(len(gameBoard)-1,0,-1):
+    for i in range(len(gameBoard[0])-1,-1,-1):
+        for j in range(len(gameBoard)-1,-1,-1):
             if gameBoard[j][i] == "@" and lockBoard[j][i]!= "@":
                 gameBoard[j+1][i] = "@"
+                print(j)
                 gameBoard[j][i] = ' '
 
                 if j+2 == len(gameBoard) or lockBoard[j+2][i] == "@":

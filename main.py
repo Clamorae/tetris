@@ -14,6 +14,3 @@ while stuck==False:
     gameBoard,stuck = gl.frame(gameBoard,lockBoard)
     dis.printGB(gameBoard)
 lockBoard = copy.deepcopy(gameBoard)
-
-gameBoard = gl.spawnTetromino(gameBoard,tetromino)
-dis.printGB(gameBoard)
