@@ -21,7 +21,7 @@ def frame(gameBoard,lockBoard):
     return gameBoard,stuck
 
 def spawnTetromino(gameBoard, tetromino):
-    next = tetromino[3]#[rand.randint(0,6)]
+    next = [rand.randint(0,6)]
     print(next.up)
 
     for i in range(0,4):
