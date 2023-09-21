@@ -1,4 +1,5 @@
 import random as rand
+import copy
 
 def createGB():
     gameBoard = [[' ']*10 for x in range(0,20)]
@@ -12,7 +13,6 @@ def frame(gameBoard,lockBoard):
         for j in range(len(gameBoard)-1,-1,-1):
             if gameBoard[j][i] == "@" and lockBoard[j][i]!= "@":
                 gameBoard[j+1][i] = "@"
-                print(j)
                 gameBoard[j][i] = ' '
 
                 if j+2 == len(gameBoard) or lockBoard[j+2][i] == "@":
@@ -33,3 +33,33 @@ def spawnTetromino(gameBoard, tetromino):
                 print(next.up.item(j,i))
     
     return gameBoard
+
+def right(gBoard,lBoard):
+
+    save = copy.deepcopy(gBoard)
+
+    for i in range(len(gBoard[0])-1,0,-1):
+        for j in range(0,len(gBoard)):
+            if gBoard[j][i] == "@" and lBoard[j][i]!= "@" :
+                try:
+                    gBoard[j][i+1] = "@"
+                    gBoard[j][i] = ' '
+                except:
+                    return save
+
+    return gBoard
+
+def left(gBoard,lBoard):
+
+    save = copy.deepcopy(gBoard)
+
+    for i in range(0,len(gBoard[0])):
+        for j in range(0,len(gBoard)):
+            if gBoard[j][i] == "@" and lBoard[j][i]!= "@" :
+                if i-1 >= 0:
+                    gBoard[j][i-1] = "@"
+                    gBoard[j][i] = ' '
+                else:
+                    return save
+
+    return gBoard
