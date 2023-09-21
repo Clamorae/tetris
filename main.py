@@ -21,6 +21,7 @@ while stuck==False:
     gameBoard,stuck = gl.frame(gameBoard,lockBoard)
     gl.left(gameBoard,lockBoard)
     dis.printGB(gameBoard)
-    
+
 gameBoard = gl.check_line(gameBoard)
 lockBoard = copy.deepcopy(gameBoard)
+dis.printGB(gameBoard)

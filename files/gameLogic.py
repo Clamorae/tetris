@@ -75,5 +75,14 @@ def check_line(gBoard):
         if full == True:
             to_remove.append(i)
     
-    print(to_remove)
-    return gBoard
+    return removeLine(gBoard,to_remove)
+
+def removeLine(gBoard,to_remove):
+    
+    bufferBoard = copy.deepcopy(gBoard)
+    for value in to_remove:
+        bufferBoard.remove(gBoard[value])
+        bufferBoard = [[' ']*10] + bufferBoard
+
+    return bufferBoard
+    
