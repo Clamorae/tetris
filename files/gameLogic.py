@@ -21,7 +21,7 @@ def frame(gameBoard,lockBoard):
     return gameBoard,stuck
 
 def spawnTetromino(gameBoard, tetromino):
-    next = tetromino[rand.randint(0,6)]
+    next = tetromino[3]#[rand.randint(0,6)]
     print(next.up)
 
     for i in range(0,4):
@@ -62,4 +62,18 @@ def left(gBoard,lBoard):
                 else:
                     return save
 
+    return gBoard
+
+def check_line(gBoard):
+    to_remove = []
+    for i in range(len(gBoard)):
+        full = True
+        for cell in gBoard[i]:
+            if cell != "@":
+                full = False
+                break
+        if full == True:
+            to_remove.append(i)
+    
+    print(to_remove)
     return gBoard
