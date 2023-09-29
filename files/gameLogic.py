@@ -21,18 +21,18 @@ def frame(gameBoard,lockBoard):
     return gameBoard,stuck
 
 def spawnTetromino(gameBoard, tetromino):
-    next = [rand.randint(0,6)]
-    print(next.up)
+    next = tetromino[1] #tetromino[rand.randint(0,6)]
 
     for i in range(0,4):
         for j in range(0,4):
             if gameBoard[j][i+3] == "@":
                 print('game over')
             else:
-                gameBoard[j][i+3] = next.up.item(j,i)
-                print(next.up.item(j,i))
+                if (next.up[0] == j and next.up[1] == i) or (next.up[2] == j and next.up[3] == i) or (next.up[4] == j and next.up[5] == i) or (next.up[6] == j and next.up[7] == i):
+                    gameBoard[j][i+3] = "@"
+                    #gameBoard[j][i+3] = next.up.item(j,i)
     
-    return gameBoard
+    return gameBoard,next
 
 def right(gBoard,lBoard):
 
@@ -86,3 +86,50 @@ def removeLine(gBoard,to_remove):
 
     return bufferBoard
     
+def findTet(tetromino,gBoard,lBoard):
+
+    searchBoard = [[],[]]
+    for i in range(0,len(gBoard)):
+        for j in range(0,len(gBoard[0])):
+            if gBoard[i][j] == "@" and lBoard[i][j]!= "@" :
+                searchBoard[0].append(i)
+                searchBoard[1].append(j)
+
+    min_i = min(searchBoard[0])   
+    min_j = min(searchBoard[1])
+    saveBoard = copy.deepcopy(searchBoard)  
+    for i in range(0,min_i):
+        for j in range(0,min_j):
+            searchBoard = copy.deepcopy(saveBoard)
+            checkTet = []
+            for k in range(4):
+                searchBoard[0][k] -= i
+                searchBoard[1][k] -= j
+                checkTet.append(searchBoard[0][k])
+                checkTet.append(searchBoard[1][k])
+
+            print(checkTet,i,j)
+            if checkTet == tetromino.up:
+                print("up")
+                gBoard[checkTet[0]+i][checkTet[1]+j] = " "
+                gBoard[checkTet[2]+i][checkTet[3]+j] = " "
+                gBoard[checkTet[4]+i][checkTet[5]+j] = " "
+                gBoard[checkTet[6]+i][checkTet[7]+j] = " "
+                gBoard[tetromino.left[0]+i][tetromino.left[1]+j] = "@"
+                gBoard[tetromino.left[2]+i][tetromino.left[3]+j] = "@"
+                gBoard[tetromino.left[4]+i][tetromino.left[5]+j] = "@"
+                gBoard[tetromino.left[6]+i][tetromino.left[7]+j] = "@"
+                return(gBoard)
+            
+            elif checkTet == tetromino.left:
+                print("left")
+            elif checkTet == tetromino.down:
+                print("down")
+            elif checkTet == tetromino.right:
+                print("right")
+
+            for k in range(2):
+                for l in range(4):
+                    checkTet.append(searchBoard[k][l])
+            
+            
