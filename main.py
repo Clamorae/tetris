@@ -13,7 +13,7 @@ tetromino = [tet.i,tet.j,tet.l,tet.o,tet.s,tet.t,tet.z]
 gameBoard,lockBoard = gl.createGB()
 
 gameBoard,current = gl.spawnTetromino(gameBoard,tetromino)
-gameBoard = gl.findTet(current,gameBoard,lockBoard)
+gameBoard = gl.rotate(current,gameBoard,lockBoard,1)
 dis.printGB(gameBoard)
 
 stuck = False
