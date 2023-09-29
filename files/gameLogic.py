@@ -21,7 +21,7 @@ def frame(gameBoard,lockBoard):
     return gameBoard,stuck
 
 def spawnTetromino(gameBoard, tetromino):
-    next = tetromino[1] #tetromino[rand.randint(0,6)]
+    next = tetromino[rand.randint(0,6)]
 
     for i in range(0,4):
         for j in range(0,4):
@@ -98,8 +98,8 @@ def rotate(tetromino,gBoard,lBoard,isLeft):
     min_i = min(searchBoard[0])   
     min_j = min(searchBoard[1])
     saveBoard = copy.deepcopy(searchBoard)  
-    for i in range(0,min_i):
-        for j in range(0,min_j):
+    for i in range(0,min_i+1):
+        for j in range(0,min_j+1):
             searchBoard = copy.deepcopy(saveBoard)
             checkTet = []
             for k in range(4):
@@ -108,9 +108,8 @@ def rotate(tetromino,gBoard,lBoard,isLeft):
                 checkTet.append(searchBoard[0][k])
                 checkTet.append(searchBoard[1][k])
 
-            print(checkTet,i,j)
             if checkTet == tetromino.up:
-                print("up")
+                
                 gBoard[checkTet[0]+i][checkTet[1]+j] = " "
                 gBoard[checkTet[2]+i][checkTet[3]+j] = " "
                 gBoard[checkTet[4]+i][checkTet[5]+j] = " "
@@ -130,7 +129,7 @@ def rotate(tetromino,gBoard,lBoard,isLeft):
                 return(gBoard)
             
             elif checkTet == tetromino.left:
-                print("left")
+                
                 gBoard[checkTet[0]+i][checkTet[1]+j] = " "
                 gBoard[checkTet[2]+i][checkTet[3]+j] = " "
                 gBoard[checkTet[4]+i][checkTet[5]+j] = " "
@@ -146,9 +145,11 @@ def rotate(tetromino,gBoard,lBoard,isLeft):
                     gBoard[tetromino.up[2]+i][tetromino.up[3]+j] = "@"
                     gBoard[tetromino.up[4]+i][tetromino.up[5]+j] = "@"
                     gBoard[tetromino.up[6]+i][tetromino.up[7]+j] = "@"
+                
+                return(gBoard)
 
             elif checkTet == tetromino.down:
-                print("down")
+                
                 gBoard[checkTet[0]+i][checkTet[1]+j] = " "
                 gBoard[checkTet[2]+i][checkTet[3]+j] = " "
                 gBoard[checkTet[4]+i][checkTet[5]+j] = " "
@@ -166,8 +167,10 @@ def rotate(tetromino,gBoard,lBoard,isLeft):
                     gBoard[tetromino.right[4]+i][tetromino.right[5]+j] = "@"
                     gBoard[tetromino.right[6]+i][tetromino.right[7]+j] = "@"
 
+                return(gBoard)
+
             elif checkTet == tetromino.right:
-                print("right")
+
                 gBoard[checkTet[0]+i][checkTet[1]+j] = " "
                 gBoard[checkTet[2]+i][checkTet[3]+j] = " "
                 gBoard[checkTet[4]+i][checkTet[5]+j] = " "
@@ -183,9 +186,9 @@ def rotate(tetromino,gBoard,lBoard,isLeft):
                     gBoard[tetromino.up[2]+i][tetromino.up[3]+j] = "@"
                     gBoard[tetromino.up[4]+i][tetromino.up[5]+j] = "@"
                     gBoard[tetromino.up[6]+i][tetromino.up[7]+j] = "@"
+                
+                return(gBoard)
 
-            for k in range(2):
-                for l in range(4):
-                    checkTet.append(searchBoard[k][l])
+    return gBoard
             
             
