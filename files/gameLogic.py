@@ -64,8 +64,10 @@ def left(gBoard,lBoard):
 
     return gBoard
 
-def check_line(gBoard):
+def check_line(gBoard,level):
     to_remove = []
+    point = [0,40,100,300,1200]
+    nb_line = 0
     for i in range(len(gBoard)):
         full = True
         for cell in gBoard[i]:
@@ -74,8 +76,14 @@ def check_line(gBoard):
                 break
         if full == True:
             to_remove.append(i)
+            nb_line += 1
     
-    return removeLine(gBoard,to_remove)
+    score = point[nb_line] * (level[0] + 1)
+    if level[1] + nb_line >=10:
+        level[0]+=1
+        level[1]+=(nb_line-10)
+    
+    return (removeLine(gBoard,to_remove),score,level)
 
 def removeLine(gBoard,to_remove):
     
