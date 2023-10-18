@@ -26,7 +26,7 @@ def spawnTetromino(gameBoard, tetromino):
     for i in range(0,4):
         for j in range(0,4):
             if gameBoard[j][i+3] == "@":
-                print('game over')
+                return 0,0
             else:
                 if (next.up[0] == j and next.up[1] == i) or (next.up[2] == j and next.up[3] == i) or (next.up[4] == j and next.up[5] == i) or (next.up[6] == j and next.up[7] == i):
                     gameBoard[j][i+3] = "@"

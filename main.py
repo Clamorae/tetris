@@ -7,42 +7,48 @@ import files.tetromino as tet
 import files.display as dis
 import files.gameLogic as gl
 
-#TODO - input
 #TODO - full down func
 #TODO - GUI
 
-tetromino = [tet.i,tet.j,tet.l,tet.o,tet.s,tet.t,tet.z]
-gameBoard,lockBoard = gl.createGB()
-level = [1,0]
-
-gameBoard,current = gl.spawnTetromino(gameBoard,tetromino)
-
-
-
-    
-
 def beforeDrop(sec):
     time.sleep(sec)
-    print("aled")
+#===================SETUP AT START===============================
+tetromino = [tet.i,tet.j,tet.l,tet.o,tet.s,tet.t,tet.z]
+gameBoard,lockBoard = gl.createGB()
+score = 0
+level = [1,0]
+   
+#===================MAIN LOOP===================================
+while 1:  
+    gameBoard,current = gl.spawnTetromino(gameBoard,tetromino)
+    if gameBoard == 0:
+        break
     
+    stuck = False
+    while stuck == False:    
+        timer = Thread(target=beforeDrop,args=(0.5,))
+        timer.start()
 
-timer = Thread(target=beforeDrop,args=(5,))
-timer.start()
-
-key = getkey()
-buffer = []
-while timer.is_alive():
-    if key == keys.LEFT:
-        gameBoard = gl.left(gameBoard,lockBoard)
         key = getkey()
-        dis.printGB(gameBoard)
-    elif key == keys.RIGHT:
-        gameBoard = gl.right(gameBoard,lockBoard)
-        dis.printGB(gameBoard)
-        key = getkey()
-    else:
-        print("wrong key")
+        buffer = []
+        while timer.is_alive():
+            if key == keys.LEFT:
+                gameBoard = gl.left(gameBoard,lockBoard)
+                key = getkey()
+                dis.printGB(gameBoard)
+            elif key == keys.RIGHT:
+                gameBoard = gl.right(gameBoard,lockBoard)
+                dis.printGB(gameBoard)
+                key = getkey()
+            else:
+                print("wrong key")
+                key = getkey()
 
-gameBoard,stuck = gl.frame(gameBoard,lockBoard)
-dis.printGB(gameBoard)
+        gameBoard,stuck = gl.frame(gameBoard,lockBoard)
+        dis.printGB(gameBoard)
 
+
+    gameBoard,bscore,level = gl.check_line(gameBoard,level)
+    lockBoard = copy.deepcopy(gameBoard)
+    score += bscore
+print(f"game over your score is {score}")
