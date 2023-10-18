@@ -8,6 +8,7 @@ import files.display as dis
 import files.gameLogic as gl
 
 #TODO - full down func
+#TODO - better frame down
 #TODO - GUI
 
 def beforeDrop(sec):
@@ -40,11 +41,16 @@ while 1:
                 gameBoard = gl.right(gameBoard,lockBoard)
                 dis.printGB(gameBoard)
                 key = getkey()
+            elif key == keys.DOWN:
+                gameBoard,stuck = gl.fullDown(gameBoard,lockBoard,stuck)
+                dis.printGB(gameBoard)
+                key = getkey()    
             else:
                 print("wrong key")
                 key = getkey()
+        if stuck == False:
+            gameBoard,stuck = gl.frame(gameBoard,lockBoard)
 
-        gameBoard,stuck = gl.frame(gameBoard,lockBoard)
         dis.printGB(gameBoard)
 
 

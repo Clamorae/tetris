@@ -93,6 +93,12 @@ def removeLine(gBoard,to_remove):
         bufferBoard = [[' ']*10] + bufferBoard
 
     return bufferBoard
+
+def fullDown(gameBoard, lockBoard,stuck):
+    if stuck == False:    
+        while stuck == False:
+            gameBoard,stuck = frame(gameBoard,lockBoard)
+    return gameBoard,True
     
 def rotate(tetromino,gBoard,lBoard,isLeft):
 
