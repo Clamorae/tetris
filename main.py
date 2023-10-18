@@ -1,12 +1,11 @@
 import numpy as np
 from getkey import getkey,keys 
-from time import sleep
+import time
 from threading import Thread
 import copy
 import files.tetromino as tet
 import files.display as dis
 import files.gameLogic as gl
-
 
 #TODO - input
 #TODO - full down func
@@ -18,21 +17,32 @@ level = [1,0]
 
 gameBoard,current = gl.spawnTetromino(gameBoard,tetromino)
 
-# def timer(time):
-#     sleep(time)
-#     gameBoard,stuck = gl.frame(gameBoard,lockBoard)
-#     timer(time)
 
-# myThread = Thread(target=timer, args=(1,))
-# myThread.start()
 
-# while 1:
-#     key = getkey()
-#     buffer = []
-#     if key == keys.LEFT:
-#         gameBoard = gl.left(gameBoard,lockBoard)
-#     elif key == keys.RIGHT:
-#         gameBoard = gl.right(gameBoard,lockBoard)
-#     else:
-#         print("wrong key")
+    
+
+def beforeDrop(sec):
+    time.sleep(sec)
+    print("aled")
+    
+
+timer = Thread(target=beforeDrop,args=(5,))
+timer.start()
+
+key = getkey()
+buffer = []
+while timer.is_alive():
+    if key == keys.LEFT:
+        gameBoard = gl.left(gameBoard,lockBoard)
+        key = getkey()
+        dis.printGB(gameBoard)
+    elif key == keys.RIGHT:
+        gameBoard = gl.right(gameBoard,lockBoard)
+        dis.printGB(gameBoard)
+        key = getkey()
+    else:
+        print("wrong key")
+
+gameBoard,stuck = gl.frame(gameBoard,lockBoard)
+dis.printGB(gameBoard)
 
