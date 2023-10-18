@@ -37,17 +37,31 @@ while 1:
                 gameBoard = gl.left(gameBoard,lockBoard)
                 key = getkey()
                 dis.printGB(gameBoard)
+
             elif key == keys.RIGHT:
                 gameBoard = gl.right(gameBoard,lockBoard)
                 dis.printGB(gameBoard)
                 key = getkey()
+
+            elif key == keys.A:
+                gameBoard = gl.rotate(current,gameBoard,lockBoard,True)
+                dis.printGB(gameBoard)
+                key = getkey()
+
+            elif key == keys.Z:
+                gameBoard = gl.rotate(current,gameBoard,lockBoard,False)
+                dis.printGB(gameBoard)
+                key = getkey()
+
             elif key == keys.DOWN:
                 gameBoard,stuck = gl.fullDown(gameBoard,lockBoard,stuck)
                 dis.printGB(gameBoard)
-                key = getkey()    
+                key = getkey()  
+
             else:
                 print("wrong key")
                 key = getkey()
+
         if stuck == False:
             gameBoard,stuck = gl.frame(gameBoard,lockBoard)
 
